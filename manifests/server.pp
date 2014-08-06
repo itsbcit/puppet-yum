@@ -13,8 +13,9 @@ class yum::server(
     }
 
     yum::repo{$repos:
-        owner  => $owner,
-        group  => $group,
-        mode   => $mode
+        basedir => $basedir,
+        owner   => $owner,
+        group   => $group,
+        mode    => $mode
     }
 }
