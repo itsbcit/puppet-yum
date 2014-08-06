@@ -5,6 +5,9 @@ class yum::server(
     $group   = 'root',
     $mode    = '0755'
 ) inherits yum {
+
+    ensure_packages('createrepo')
+
     file { $basedir:
         ensure => directory,
         owner  => $owner,
