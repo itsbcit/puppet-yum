@@ -1,4 +1,4 @@
-define repo(
+define yum::repo(
     $basedir,
     $owner,
     $group,
