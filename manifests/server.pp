@@ -9,5 +9,5 @@ class yum::server(
         mode   => $mode
     }
 
-    yum::repo{$repos}
+    yum::repo{$repos: }
 }
