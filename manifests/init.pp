@@ -65,7 +65,7 @@ class yum (
 
   # merge together all extra_repos sources
   $default_extra_repos = getvar("os::${os_short}::extra_repos")
-  $extra_repos_hiera = str2bool($extra_repos)? {
+  $extra_repos_hiera = str2bool($extra_repos_merge)? {
     false   => $extra_repos,
     default => hiera_hash('yum::extra_repos', {} ),
   }
@@ -73,7 +73,7 @@ class yum (
 
   # merge together all options sources
   $default_options = getvar("os::${os_short}::options")
-  $options_hiera = str2bool($options)? {
+  $options_hiera = str2bool($options_merge)? {
     false   => $options,
     default => hiera_hash('yum::options', {} ),
   }
@@ -81,7 +81,7 @@ class yum (
 
   # merge together all plugins sources
   $default_plugins = getvar("os::${os_short}::plugins")
-  $plugins_hiera = str2bool($plugins)? {
+  $plugins_hiera = str2bool($plugins_merge)? {
     false   => $plugins,
     default => hiera_hash('yum::plugins', {} ),
   }
