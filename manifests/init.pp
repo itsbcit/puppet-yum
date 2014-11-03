@@ -64,7 +64,7 @@ class yum (
     false   => $default_repos,
     default => hiera_hash('yum::default_repos', {} ),
   }
-  $default_repos_real = merge($default_default_repos, $default_repos_hiera)
+  $default_repos_real = deep_merge($default_default_repos, $default_repos_hiera)
 
   # merge together all extra_repos sources
   $default_extra_repos = getvar("yum::os::${os_short}::extra_repos")
@@ -72,7 +72,7 @@ class yum (
     false   => $extra_repos,
     default => hiera_hash('yum::extra_repos', {} ),
   }
-  $extra_repos_real = merge($default_extra_repos, $extra_repos_hiera)
+  $extra_repos_real = deep_merge($default_extra_repos, $extra_repos_hiera)
 
   # merge together all options sources
   $default_options = getvar("yum::os::${os_short}::options")
@@ -80,7 +80,7 @@ class yum (
     false   => $options,
     default => hiera_hash('yum::options', {} ),
   }
-  $options_real = merge($default_options, $options_hiera)
+  $options_real = deep_merge($default_options, $options_hiera)
 
   # merge together all plugins sources
   $default_plugins = getvar("yum::os::${os_short}::plugins")
@@ -88,7 +88,7 @@ class yum (
     false   => $plugins,
     default => hiera_hash('yum::plugins', {} ),
   }
-  $plugins_real = merge($default_plugins, $plugins_hiera)
+  $plugins_real = deep_merge($default_plugins, $plugins_hiera)
 
   # end options processing
   ############
