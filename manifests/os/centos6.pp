@@ -14,4 +14,10 @@ class yum::os::centos6{
     # CentOS-Debuginfo.repo
     'debug'      = { 'enabled' => '0', 'path' => $centos_debug_file },
   }
+
+  $options = {
+    'main' => {
+      'installonly_limit' => '4',
+    }
+  }
 }
