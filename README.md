@@ -1,4 +1,4 @@
 yum
 ===
 
-Puppet module for managing Yum
+Puppet module for managing Yum client

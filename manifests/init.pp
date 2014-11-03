@@ -35,8 +35,18 @@
 # Copyright 2014 Jesse Weisner
 #
 
-class yum {
-    #
-    # This is an empty class
-    #
+class yum (
+  $clean_repos   = false,
+  $default_repos = { },
+  $extra_repos   = { },
+  $options       = { },
+  $plugins       = { },
+){
+
+  $main_config_sections = keys($options)
+
+  sections{$main_config_sections:
+    path    => '/etc/yum.conf',
+    options => $options,
+  }
 }
