@@ -15,9 +15,6 @@ class yum::os::centos6{
     'debug'      => { 'enabled' => '0', 'path' => $centos_debug_file },
   }
 
-  $options = {
-    'main' => {
-      'installonly_limit' => '4',
-    }
-  }
+  # change nothing by default
+  $options = { }
 }
