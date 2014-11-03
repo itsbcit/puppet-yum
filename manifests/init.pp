@@ -54,6 +54,7 @@ class yum (
 
   # pull in os defaults
   class{"yum::os::${os_short}": }
+  notify{"${yum::os::centos6::options}": }
 
   ############
   # begin options processing
