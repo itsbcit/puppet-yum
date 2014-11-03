@@ -54,7 +54,6 @@ class yum (
 
   # pull in os defaults
   class{"yum::os::${os_short}": }
-  notify{"${yum::os::centos6::options}": }
 
   ############
   # begin options processing
@@ -98,6 +97,6 @@ class yum (
   $main_config_sections = keys($options_real)
   section{$main_config_sections:
     path    => '/etc/yum.conf',
-    options => $options,
+    options => $options_real,
   }
 }
