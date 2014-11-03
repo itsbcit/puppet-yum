@@ -1,5 +1,5 @@
 # config file settings
-yum::settings(
+define yum::setting(
   $path,
   $section,
   $options,

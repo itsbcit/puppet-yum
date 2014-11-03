@@ -36,16 +36,63 @@
 #
 
 class yum (
-  $clean_repos   = false,
-  $default_repos = { },
-  $extra_repos   = { },
-  $options       = { },
-  $plugins       = { },
+  $clean_repos         = false,
+  $default_repos_merge = true,
+  $default_repos       = { },
+  $extra_repos_merge   = true,
+  $extra_repos         = { },
+  $options_merge       = true,
+  $options             = { },
+  $plugins_merge       = true,
+  $plugins             = { },
 ){
 
-  $main_config_sections = keys($options)
+  # fact shortcuts
+  $os_downcase   = downcase($::operatingsystem)
+  $os_majrelease = '6'
+  $os_short      = "${os_downcase}${os_majrelease}"
 
-  sections{$main_config_sections:
+  ############
+  # begin options processing
+
+  # merge together all default_repos sources
+  $default_default_repos = getvar("os::${os_short}::default_repos")
+  $default_repos_hiera = str2bool($default_repos_merge)? {
+    false   => $default_repos,
+    default => hiera_hash('yum::default_repos', {} ),
+  }
+  $default_repos_real = merge($default_default_repos, $default_repos_hiera)
+
+  # merge together all extra_repos sources
+  $default_extra_repos = getvar("os::${os_short}::extra_repos")
+  $extra_repos_hiera = str2bool($extra_repos)? {
+    false   => $extra_repos,
+    default => hiera_hash('yum::extra_repos', {} ),
+  }
+  $extra_repos_real = merge($default_extra_repos, $extra_repos_hiera)
+
+  # merge together all options sources
+  $default_options = getvar("os::${os_short}::options")
+  $options_hiera = str2bool($options)? {
+    false   => $options,
+    default => hiera_hash('yum::options', {} ),
+  }
+  $options_real = merge($default_options, $options_hiera)
+
+  # merge together all plugins sources
+  $default_plugins = getvar("os::${os_short}::plugins")
+  $plugins_hiera = str2bool($plugins)? {
+    false   => $plugins,
+    default => hiera_hash('yum::plugins', {} ),
+  }
+  $plugins_real = merge($default_plugins, $plugins_hiera)
+
+  # end options processing
+  ############
+
+  # main config file overrides
+  $main_config_sections = keys($options_real)
+  section{$main_config_sections:
     path    => '/etc/yum.conf',
     options => $options,
   }

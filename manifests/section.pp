@@ -1,5 +1,5 @@
 # config file section from hash
-define yum::sections(
+define yum::section(
   $path,
   $options,
   $section = $title,
@@ -7,7 +7,7 @@ define yum::sections(
 
   $setting_keys = keys($options[$section])
 
-  yum::settings{$setting_keys:
+  yum::setting{$setting_keys:
     path    => $path,
     options => $options,
     section => $section,
