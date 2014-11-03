@@ -53,7 +53,7 @@ class yum (
   $os_short      = "${os_downcase}${os_majrelease}"
 
   # pull in os defaults
-  include "yum::os::${os_short}"
+  class{"yum::os::${os_short}": }
 
   ############
   # begin options processing
